@@ -1,0 +1,586 @@
+{
+	"info": {
+		"_postman_id": "70b36fe8-5893-4403-8029-020debe28a54",
+		"name": "GoFTecno",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindAllDepartamentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{departamento}}/all",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{departamento}}",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllPaginadoDepartamentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{departamento}}/?pagina=0&tamanho=3",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{departamento}}",
+						""
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "0"
+						},
+						{
+							"key": "tamanho",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindByIdDepartamento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{departamento}}/1",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{departamento}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveDepartamento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dnome\": \"ADM\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{departamento}}",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{departamento}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateDepartamento",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dnumero\": 4,\r\n    \"dnome\": \"TECNOLOGIA\",\r\n    \"gerente\": null,\r\n    \"empregados\": null,\r\n    \"projetos\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{departamento}}/4",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{departamento}}",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteDepartamento",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dnumero\": 4,\r\n    \"dnome\": \"TECNOLOGIA\",\r\n    \"gerente\": null,\r\n    \"empregados\": null,\r\n    \"projetos\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{departamento}}/4",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{departamento}}",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllEmpregados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{empregados}}/all",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{empregados}}",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllPaginadoEmpregados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{empregados}}/?pagina=0&tamanho=3",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{empregados}}",
+						""
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "0"
+						},
+						{
+							"key": "tamanho",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindByCpfEmpregado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{empregados}}/77766655544",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{empregados}}",
+						"77766655544"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveEmpregado",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"77766655511\",\r\n    \"enome\": \"RAFAEL\",\r\n    \"salario\": 2000.0,\r\n    \"supervisor\": \"77766655544\",\r\n    \"departamento\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{empregados}}/",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{empregados}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateEmpregado",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cpf\": \"77766655522\",\r\n    \"enome\": \"RAFAEL\",\r\n    \"salario\": 2000.0,\r\n    \"supervisor\": \"77766655544\",\r\n    \"departamento\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{empregados}}/77766655544",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{empregados}}",
+						"77766655544"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteEmpregado",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{empregados}}/77766655522",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{empregados}}",
+						"77766655522"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllProjetos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{projetos}}/all",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{projetos}}",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllPaginadoProjetos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{projetos}}/?pagina=0&tamanho=3",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{projetos}}",
+						""
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "0"
+						},
+						{
+							"key": "tamanho",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindByIdProjeto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{projetos}}/1",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{projetos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveProjeto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pnome\": \"BIA\",\r\n    \"departamento\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{projetos}}/",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{projetos}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProjeto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"pnumero\": 1,\r\n        \"pnome\": \"BIA - BOLSA DE INICIAÇÃO ACADÊMICA\",\r\n        \"departamento\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{projetos}}/1",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{projetos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProjeto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{projetos}}/1",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{projetos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllTrabalhos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{trabalhos}}/all",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{trabalhos}}",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindAllPaginadoTrabalhos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{trabalhos}}/?pagina=0&tamanho=3",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{trabalhos}}",
+						""
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "0"
+						},
+						{
+							"key": "tamanho",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FindByIdTrabalho",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{trabalhos}}/1",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{trabalhos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SaveTrabalho",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"empregado\": \"77766655544\",\r\n    \"projeto\": 1,\r\n    \"inicio\": \"2021-04-05\",\r\n    \"termino\": \"2022-04-05\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{trabalhos}}/",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{trabalhos}}",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTrabalho",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"empregado\": \"77766655544\",\r\n    \"projeto\": 1,\r\n    \"inicio\": \"2021-04-05\",\r\n    \"termino\": \"2022-05-05\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{urlocal}}:{{portalocal}}/{{trabalhos}}/1",
+					"host": [
+						"{{urlocal}}"
+					],
+					"port": "{{portalocal}}",
+					"path": [
+						"{{trabalhos}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
