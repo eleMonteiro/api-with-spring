@@ -1,6 +1,7 @@
-## Tecnologias:
-- Java 11
-- Spring Boot
-- Spring Data JPA
-- PostgreSQL
-- Flyway
+## Tecnologias Usadas no Projeto
+* Java 11
+* Gradle
+* Spring Boot
+* Spring Data (Hibernate/JPA)
+* PostgreSQL
+* FlyWay
