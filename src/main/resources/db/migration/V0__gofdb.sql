@@ -1,14 +1,13 @@
 CREATE TABLE departamentos (
 	dnumero SERIAL NOT NULL,
-	dnome varchar(255) NOT NULL,
-    UNIQUE(dnome),
+	dnome varchar(255) NOT NULL UNIQUE,
 	CONSTRAINT departamento_pkey PRIMARY KEY (dnumero)
 );
 
 CREATE TABLE empregados (
 	cpf varchar(255) NOT NULL,
-	enome varchar(255),
-    salario real,
+	enome varchar(255) NOT NULL UNIQUE ,
+    salario real NOT NULL,
     cpf_supervisor varchar(255),
     dnumero int,
 	CONSTRAINT empregados_pkey  PRIMARY KEY (cpf),
@@ -18,9 +17,8 @@ CREATE TABLE empregados (
 
 CREATE TABLE projetos (
 	pnumero SERIAL NOT NULL,
-	pnome varchar(255) NOT NULL,
+	pnome varchar(255) NOT NULL UNIQUE,
     dnumero int,
-    UNIQUE(pnome),
 	CONSTRAINT projeto_pkey PRIMARY KEY (pnumero),
     CONSTRAINT projeto_fkey2 FOREIGN KEY (dnumero) REFERENCES departamentos(dnumero)
 );

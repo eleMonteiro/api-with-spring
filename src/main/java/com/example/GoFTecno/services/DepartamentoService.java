@@ -3,6 +3,7 @@ package com.example.GoFTecno.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import com.example.GoFTecno.dtos.DepartamentoDTO;
@@ -45,25 +46,30 @@ public class DepartamentoService {
     }
 
     public DepartamentoDTO save(Departamento departamento) {
+        repository.findByDnomeIgnoreCase(departamento.getDnome()).ifPresent(d -> {
+            throw new EntityExistsException("Departamento com nome " + d.getDnome() + " já existe");
+        });
+
         return DepartamentoDTO.convert(repository.save(departamento));
     }
 
     public DepartamentoDTO update(Integer dnumero, Departamento departamento) {
-        if (repository.existsById(dnumero)) {
+        repository.findById(dnumero).orElseThrow(() -> new EntityNotFoundException("Departamento com id " + dnumero + " não encontrado"));
 
-            if (dnumero != departamento.getDnumero()) {
-                throw new UnsupportedOperationException("ID informado diferente do Departamento.");
-            }
+        if (dnumero != departamento.getDnumero())
+            throw new UnsupportedOperationException("ID informado diferente do Departamento.");
 
-            return DepartamentoDTO.convert(repository.save(departamento));
-        } else
-            throw new EntityNotFoundException("Departamento id: " + dnumero);
+        repository.findByDnomeIgnoreCase(departamento.getDnome()).ifPresent(d -> {
+            if (d.getDnumero() != departamento.getDnumero())
+                throw new EntityExistsException("Departamento com nome " + d.getDnome() + " já existe");
+        });
+
+        return DepartamentoDTO.convert(repository.save(departamento));
     }
 
     public void delete(Integer dnumero) {
-        if (repository.existsById(dnumero)) {
-            repository.deleteById(dnumero);
-        } else
-            throw new EntityNotFoundException("Departamento id: " + dnumero);
+        repository.findById(dnumero)
+                .orElseThrow(() -> new EntityNotFoundException("Departamento com id " + dnumero + " não encontrado"));
+        repository.deleteById(dnumero);
     }
 }

@@ -1,7 +1,12 @@
 package com.example.GoFTecno.controllers;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.example.GoFTecno.dtos.EmpregadoDTO;
@@ -9,6 +14,7 @@ import com.example.GoFTecno.exceptions.ExceptionAdvice;
 import com.example.GoFTecno.models.Departamento;
 import com.example.GoFTecno.models.Empregado;
 import com.example.GoFTecno.services.EmpregadoService;
+import com.example.GoFTecno.utils.EmpregadoExcelExporter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -82,4 +88,19 @@ public class EmpregadoController extends ExceptionAdvice {
         service.delete(cpf);
     }
 
+    @GetMapping({ "/export" })
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=empregados_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<EmpregadoDTO> empregados = findAll();
+
+        EmpregadoExcelExporter exporter = new EmpregadoExcelExporter(empregados);
+        exporter.export(response);
+    }
 }

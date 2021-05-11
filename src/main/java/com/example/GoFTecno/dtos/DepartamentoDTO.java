@@ -22,4 +22,5 @@ public class DepartamentoDTO {
 
         return departamentoDTO;
     }
+
 }
