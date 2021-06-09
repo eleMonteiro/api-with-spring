@@ -1,13 +1,12 @@
-package com.example.GoFTecno.integration;
+package com.example.api.repositorys;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.validation.ConstraintViolationException;
 
-import com.example.GoFTecno.ConfigIntegration;
-import com.example.GoFTecno.models.Departamento;
-import com.example.GoFTecno.repositorys.DepartamentoRepository;
+import com.example.api.ConfigIntegration;
+import com.example.api.models.Departamento;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,9 +1,9 @@
-package com.example.GoFTecno.api;
+package com.example.api.controllers;
 
-import com.example.GoFTecno.ConfigIntegration;
-import com.example.GoFTecno.exceptions.Standard;
-import com.example.GoFTecno.models.Departamento;
-import com.example.GoFTecno.models.Empregado;
+import com.example.api.ConfigIntegration;
+import com.example.api.exceptions.Standard;
+import com.example.api.models.Departamento;
+import com.example.api.models.Empregado;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;

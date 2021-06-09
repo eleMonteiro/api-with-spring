@@ -1,4 +1,4 @@
-package com.example.GoFTecno.config;
+package com.example.api.config;
 
 import org.springframework.stereotype.Component;
 

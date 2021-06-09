@@ -1,9 +1,8 @@
-package com.example.GoFTecno.utils;
+package com.example.api.utils;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.example.api.utils.CollectionsUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

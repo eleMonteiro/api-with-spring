@@ -1,4 +1,4 @@
-package com.example.GoFTecno;
+package com.example.api;
 
 import io.restassured.RestAssured;
 import org.junit.BeforeClass;
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.PostConstruct;
 
-import com.example.GoFTecno.config.DBIntegration;
+import com.example.api.config.DBIntegration;
 
 import java.util.ArrayList;
 import java.util.List;
