@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import com.example.GoFTecno.utils.CollectionsUtil;
+import com.example.api.utils.CollectionsUtil;
 
 import java.util.List;
 

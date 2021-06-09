@@ -56,7 +56,7 @@ asciidoctor {
 }
 
 flyway {
-	url = 'jdbc:postgresql://localhost:5432/gofdb'
+	url = 'jdbc:postgresql://localhost:5432/gofdb_dev'
 	user = 'postgres'
 	password = '123'
 }
