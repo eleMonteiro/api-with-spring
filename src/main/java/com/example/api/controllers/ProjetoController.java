@@ -3,7 +3,7 @@ package com.example.api.controllers;
 import com.example.api.exceptions.ExceptionAdvice;
 import com.example.api.models.Exportar;
 import com.example.api.models.Projeto;
-import com.example.api.services.impl.ProjetoServiceImpl;
+import com.example.api.services.ProjetoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,12 @@ import java.net.URI;
 @RequestMapping(path = "/projetos")
 public class ProjetoController extends ExceptionAdvice {
 
+    private final ProjetoService service;
+
     @Autowired
-    private ProjetoServiceImpl service;
+    public ProjetoController(ProjetoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
@@ -48,13 +52,8 @@ public class ProjetoController extends ExceptionAdvice {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<Projeto> update(@PathVariable(name = "id") Long numero, @RequestBody Projeto projeto) {
-        Projeto atualizado = service.update(numero, projeto);
-
-        URI uri = MvcUriComponentsBuilder.fromController(getClass()).buildAndExpand(atualizado)
-                .toUri();
-
-        return ResponseEntity.status(HttpStatus.OK).location(uri).body(atualizado);
+    public Projeto update(@PathVariable(name = "id") Long numero, @RequestBody Projeto projeto) {
+        return service.update(numero, projeto);
     }
 
     @DeleteMapping("/{id}")

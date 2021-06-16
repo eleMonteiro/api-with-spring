@@ -1,6 +1,5 @@
 package com.example.api.services.impl;
 
-import com.example.api.models.Empregado;
 import com.example.api.models.Exportar;
 import com.example.api.models.Projeto;
 import com.example.api.repositorys.ProjetoRepository;
@@ -27,8 +26,12 @@ import java.util.Optional;
 @Service
 public class ProjetoServiceImpl implements ProjetoService {
 
+    private final ProjetoRepository repository;
+
     @Autowired
-    private ProjetoRepository repository;
+    public ProjetoServiceImpl(ProjetoRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Projeto save(Projeto projeto) {
@@ -77,8 +80,8 @@ public class ProjetoServiceImpl implements ProjetoService {
         return (root, query, builder) -> {
             final List<Predicate> predicates = new ArrayList<>();
 
-            Optional optional = Optional.ofNullable(filtro);
-            Projeto projeto = (Projeto) optional.orElse(new Projeto());
+            Optional<Projeto> optional = Optional.ofNullable(filtro);
+            Projeto projeto = optional.orElse(new Projeto());
 
             if (Objects.nonNull(projeto.getNumero()))
                 predicates.add(builder.equal(root.get("numero"), projeto.getNumero()));
@@ -90,7 +93,8 @@ public class ProjetoServiceImpl implements ProjetoService {
                 predicates.add(builder.equal(root.get("departamento"), projeto.getDepartamento()));
 
             predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
-            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+            int size = predicates.size();
+            return builder.and(predicates.toArray(new Predicate[size]));
         };
     }
 

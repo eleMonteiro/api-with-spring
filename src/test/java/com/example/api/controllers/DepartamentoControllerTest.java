@@ -9,24 +9,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DepartamentoControllerTest extends ConfigIntegration {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private RequestSpecification requisicao;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     @BeforeEach
-    private void prepararRequisicao() {
+    void setUp() {
         registryEntity(Departamento.class);
         registryEntity(Empregado.class);
 
@@ -36,7 +39,7 @@ public class DepartamentoControllerTest extends ConfigIntegration {
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         clearTables();
     }
 
@@ -122,7 +125,7 @@ public class DepartamentoControllerTest extends ConfigIntegration {
                 .when().post().then().statusCode(HttpStatus.SC_CREATED).extract()
                 .as(Departamento.class);
 
-        Long id = esperado.getNumero() + 1;
+        long id = esperado.getNumero() + 1;
         esperado.setNome("ADM");
         Standard standard = given().spec(requisicao).body(objectMapper.writeValueAsString(esperado))
                 .pathParam("id", esperado.getNumero() + 1).when().put("/{id}").then()
@@ -130,7 +133,7 @@ public class DepartamentoControllerTest extends ConfigIntegration {
 
         assertThat(standard.getStatus()).isEqualTo(404);
         assertThat(standard.getMessage())
-                .isEqualTo("Departamento com id " + id + " não encontrado");
+                .isEqualTo("Departamento com identificador " + id + " não encontrado");
     }
 
     @Test
@@ -174,7 +177,7 @@ public class DepartamentoControllerTest extends ConfigIntegration {
                 .when().post().then().statusCode(HttpStatus.SC_CREATED).extract()
                 .as(Departamento.class);
 
-        Long id = esperado.getNumero() + 1;
+        long id = esperado.getNumero() + 1;
         Standard standard = given().spec(requisicao).pathParam("id", esperado.getNumero() + 1).when()
                 .delete("/{id}").then().statusCode(HttpStatus.SC_NOT_FOUND).extract()
                 .as(Standard.class);
@@ -191,10 +194,14 @@ public class DepartamentoControllerTest extends ConfigIntegration {
                 .when().post().then().statusCode(HttpStatus.SC_CREATED).extract()
                 .as(Departamento.class);
 
-        Departamento atual = given().spec(requisicao).pathParam("id", esperado.getNumero()).when().get("/{id}")
-                .then().statusCode(HttpStatus.SC_OK).extract().as(Departamento.class);
+        Departamento filtro = new Departamento();
+        filtro.setNumero(esperado.getNumero());
 
-        assertEquals(esperado, atual);
+        Response response = given().spec(requisicao).body(objectMapper.writeValueAsString(filtro)).expect().statusCode(HttpStatus.SC_OK).when().get();
+        List<Departamento> atual = response.jsonPath().getList("content", Departamento.class);
+
+        assertEquals(atual.size(), 1);
+        assertTrue(atual.contains(esperado));
     }
 
     private Departamento dadoUmDepartamentoComTodosOsDados() {

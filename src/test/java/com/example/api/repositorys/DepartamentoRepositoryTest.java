@@ -1,6 +1,5 @@
 package com.example.api.repositorys;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import javax.validation.ConstraintViolationException;
@@ -22,25 +21,20 @@ public class DepartamentoRepositoryTest extends ConfigIntegration {
     private DepartamentoRepository repository;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         registryEntity(Departamento.class);
     }
 
     @AfterEach
-    public void tearDown() {
+    void tearDown() {
         clearTables();
     }
 
     private Departamento departamentoCompleto() {
         Departamento departamento = new Departamento();
-        departamento.setDnome("dnome");
+        departamento.setNome("dnome");
 
         return departamento;
-    }
-
-    @Test
-    public void autowiredNotNull() {
-        assertNotNull(repository);
     }
 
     @Test
@@ -52,7 +46,7 @@ public class DepartamentoRepositoryTest extends ConfigIntegration {
     @Test
     public void deveriaNaoSalvarDepartamentoComNomeNulo() {
         Departamento departamento = departamentoCompleto();
-        departamento.setDnome(null);
+        departamento.setNome(null);
         assertThrows(ConstraintViolationException.class, () -> repository.save(departamento));
     }
 
@@ -63,11 +57,11 @@ public class DepartamentoRepositoryTest extends ConfigIntegration {
 
         assertThat(esperado).isNotNull();
 
-        esperado.setDnome("Departamento");
+        esperado.setNome("Departamento");
         Departamento atual = repository.save(esperado);
 
         assertThat(atual).isEqualTo(esperado);
-        assertThat(repository.findByDnomeIgnoreCase(atual.getDnome()).isPresent()).isTrue();
+        assertThat(repository.findByNomeIgnoreCase(atual.getNome()).isPresent()).isTrue();
     }
 
     @Test
@@ -77,9 +71,9 @@ public class DepartamentoRepositoryTest extends ConfigIntegration {
 
         assertThat(esperado).isNotNull();
 
-        repository.deleteById(esperado.getDnumero());
+        repository.deleteById(esperado.getNumero());
 
-        Boolean atual = repository.findByDnomeIgnoreCase(esperado.getDnome()).isPresent();
+        Boolean atual = repository.findByNomeIgnoreCase(esperado.getNome()).isPresent();
 
         assertThat(atual).isFalse();
     }
@@ -87,12 +81,12 @@ public class DepartamentoRepositoryTest extends ConfigIntegration {
     @Test
     public void deveriaNaoApagarDepartamentoInexistente() {
         Departamento departamento = departamentoCompleto();
-        departamento.setDnome("RH");
+        departamento.setNome("RH");
         Departamento esperado = repository.save(departamento);
 
         assertThat(esperado).isNotNull();
 
-        assertThrows(EmptyResultDataAccessException.class, () -> repository.deleteById(-1));
+        assertThrows(EmptyResultDataAccessException.class, () -> repository.deleteById(-1L));
     }
 
 }

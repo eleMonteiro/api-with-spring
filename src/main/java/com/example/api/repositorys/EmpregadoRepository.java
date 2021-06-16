@@ -10,7 +10,5 @@ import java.util.Optional;
 @Repository
 public interface EmpregadoRepository extends JpaRepository<Empregado, Long>, JpaSpecificationExecutor<Empregado> {
 
-    Optional<Empregado> findByNomeIgnoreCase(String nome);
-
     Optional<Empregado> findByCpf(String cpf);
 }

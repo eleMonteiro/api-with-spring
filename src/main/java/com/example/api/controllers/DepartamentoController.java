@@ -3,7 +3,7 @@ package com.example.api.controllers;
 import com.example.api.exceptions.ExceptionAdvice;
 import com.example.api.models.Departamento;
 import com.example.api.models.Exportar;
-import com.example.api.services.impl.DepartamentoServiceImpl;
+import com.example.api.services.DepartamentoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,12 @@ import java.net.URI;
 @RequestMapping(path = "/departamentos")
 public class DepartamentoController extends ExceptionAdvice {
 
+    private final DepartamentoService service;
+
     @Autowired
-    private DepartamentoServiceImpl service;
+    public DepartamentoController(DepartamentoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
@@ -48,13 +52,8 @@ public class DepartamentoController extends ExceptionAdvice {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<Departamento> update(@PathVariable(name = "id") Long numero, @RequestBody Departamento departamento) {
-        Departamento atualizado = service.update(numero, departamento);
-
-        URI uri = MvcUriComponentsBuilder.fromController(getClass()).buildAndExpand(atualizado)
-                .toUri();
-
-        return ResponseEntity.status(HttpStatus.OK).location(uri).body(atualizado);
+    public Departamento update(@PathVariable(name = "id") Long numero, @RequestBody Departamento departamento) {
+       return service.update(numero, departamento);
     }
 
     @DeleteMapping("/{id}")

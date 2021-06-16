@@ -18,7 +18,6 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.Predicate;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -27,8 +26,12 @@ import java.util.Optional;
 @Service
 public class DepartamentoServiceImpl implements DepartamentoService {
 
+    private final DepartamentoRepository repository;
+
     @Autowired
-    private DepartamentoRepository repository;
+    public DepartamentoServiceImpl(DepartamentoRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public Departamento save(Departamento departamento) {
@@ -86,7 +89,8 @@ public class DepartamentoServiceImpl implements DepartamentoService {
                 predicates.add(builder.like(builder.lower(root.get("nome")), "%" + departamento.getNome() + "%"));
 
             predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
-            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+            int size = predicates.size();
+            return builder.and(predicates.toArray(new Predicate[size]));
         };
     }
 

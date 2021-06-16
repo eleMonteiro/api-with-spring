@@ -2,7 +2,7 @@ package com.example.api.controllers;
 
 import com.example.api.exceptions.ExceptionAdvice;
 import com.example.api.models.EmpregadoProjeto;
-import com.example.api.services.impl.EmpregadoProjetoServiceImpl;
+import com.example.api.services.EmpregadoProjetoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +20,12 @@ import java.net.URI;
 @RequestMapping(path = "/trabalhos")
 public class EmpregadoProjetoController extends ExceptionAdvice {
 
+    private final EmpregadoProjetoService service;
+
     @Autowired
-    private EmpregadoProjetoServiceImpl service;
+    public EmpregadoProjetoController(EmpregadoProjetoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
@@ -45,13 +49,8 @@ public class EmpregadoProjetoController extends ExceptionAdvice {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<EmpregadoProjeto> update(@PathVariable(name = "id") Long numero, @RequestBody EmpregadoProjeto empregadoProjeto) {
-        EmpregadoProjeto atualizado = service.update(numero, empregadoProjeto);
-
-        URI uri = MvcUriComponentsBuilder.fromController(getClass()).buildAndExpand(atualizado)
-                .toUri();
-
-        return ResponseEntity.status(HttpStatus.OK).location(uri).body(atualizado);
+    public EmpregadoProjeto update(@PathVariable(name = "id") Long numero, @RequestBody EmpregadoProjeto empregadoProjeto) {
+        return service.update(numero, empregadoProjeto);
     }
 
     @DeleteMapping("/{id}")

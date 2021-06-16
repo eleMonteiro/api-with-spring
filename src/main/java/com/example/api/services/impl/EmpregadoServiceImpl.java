@@ -1,6 +1,5 @@
 package com.example.api.services.impl;
 
-import com.example.api.models.Departamento;
 import com.example.api.models.Empregado;
 import com.example.api.models.Exportar;
 import com.example.api.repositorys.DepartamentoRepository;
@@ -20,7 +19,6 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.Predicate;
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -29,11 +27,15 @@ import java.util.Optional;
 @Service
 public class EmpregadoServiceImpl implements EmpregadoService {
 
-    @Autowired
-    private EmpregadoRepository repository;
+    private final EmpregadoRepository repository;
+
+    private final DepartamentoRepository departamentoRepository;
 
     @Autowired
-    private DepartamentoRepository departamentoRepository;
+    public EmpregadoServiceImpl(EmpregadoRepository repository, DepartamentoRepository departamentoRepository) {
+        this.repository = repository;
+        this.departamentoRepository = departamentoRepository;
+    }
 
     @Override
     public Empregado save(Empregado empregado) {
@@ -109,7 +111,8 @@ public class EmpregadoServiceImpl implements EmpregadoService {
                 predicates.add(builder.like(builder.lower(root.get("nome")), "%" + empregado.getNome() + "%"));
 
             predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
-            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+            int size = predicates.size();
+            return builder.and(predicates.toArray(new Predicate[size]));
         };
     }
 

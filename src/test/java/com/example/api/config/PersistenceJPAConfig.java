@@ -27,7 +27,7 @@ public class PersistenceJPAConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[] { "com.example.GoFTecno" });
+        em.setPackagesToScan(new String[] { "com.example.api" });
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
@@ -40,7 +40,7 @@ public class PersistenceJPAConfig {
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/gofdb_test");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/gof_test");
         dataSource.setUsername( "postgres" );
         dataSource.setPassword( "123" );
         return dataSource;

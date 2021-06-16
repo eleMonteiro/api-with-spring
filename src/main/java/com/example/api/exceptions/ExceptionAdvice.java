@@ -34,13 +34,13 @@ public class ExceptionAdvice {
     }
 
     @ExceptionHandler(UnsupportedOperationException.class)
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE)
     public Standard unsupported(UnsupportedOperationException ex, HttpServletRequest http) {
         Standard error = new Standard();
 
         error.setTimestamp(Instant.now());
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setError(HttpStatus.NOT_FOUND.name());
+        error.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+        error.setError(HttpStatus.NOT_ACCEPTABLE.name());
         error.setMessage(ex.getMessage());
         error.setPath(http.getRequestURI());
 

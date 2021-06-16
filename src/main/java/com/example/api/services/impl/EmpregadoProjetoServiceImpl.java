@@ -23,14 +23,18 @@ import java.util.Optional;
 @Service
 public class EmpregadoProjetoServiceImpl implements EmpregadoProjetoService {
 
-    @Autowired
-    private EmpregadoProjetoRepository repository;
+    private final EmpregadoProjetoRepository repository;
+
+    private final EmpregadoRepository empregadoRepository;
+
+    private final ProjetoRepository projetoRepository;
 
     @Autowired
-    private EmpregadoRepository empregadoRepository;
-
-    @Autowired
-    private ProjetoRepository projetoRepository;
+    public EmpregadoProjetoServiceImpl(EmpregadoProjetoRepository repository, EmpregadoRepository empregadoRepository, ProjetoRepository projetoRepository) {
+        this.repository = repository;
+        this.empregadoRepository = empregadoRepository;
+        this.projetoRepository = projetoRepository;
+    }
 
     @Override
     public EmpregadoProjeto save(EmpregadoProjeto empregadoProjeto) {
@@ -72,8 +76,8 @@ public class EmpregadoProjetoServiceImpl implements EmpregadoProjetoService {
         return (root, query, builder) -> {
             final List<Predicate> predicates = new ArrayList<>();
 
-            Optional optional = Optional.ofNullable(filtro);
-            EmpregadoProjeto empregadoProjeto = (EmpregadoProjeto) optional.orElse(new EmpregadoProjeto());
+            Optional<EmpregadoProjeto> optional = Optional.ofNullable(filtro);
+            EmpregadoProjeto empregadoProjeto = optional.orElse(new EmpregadoProjeto());
 
             if (Objects.nonNull(empregadoProjeto.getNumero()))
                 predicates.add(builder.equal(root.get("numero"), empregadoProjeto.getNumero()));
@@ -91,7 +95,8 @@ public class EmpregadoProjetoServiceImpl implements EmpregadoProjetoService {
                 predicates.add(builder.equal(root.get("termino"), empregadoProjeto.getTermino()));
 
             predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
-            return builder.and(predicates.toArray(new Predicate[predicates.size()]));
+            int size = predicates.size();
+            return builder.and(predicates.toArray(new Predicate[size]));
         };
     }
 
