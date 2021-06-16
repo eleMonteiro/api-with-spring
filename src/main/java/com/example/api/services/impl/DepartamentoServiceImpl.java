@@ -1,8 +1,11 @@
 package com.example.api.services.impl;
 
 import com.example.api.models.Departamento;
+import com.example.api.models.Exportar;
 import com.example.api.repositorys.DepartamentoRepository;
 import com.example.api.services.DepartamentoService;
+import com.example.api.utils.ExportUtils;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.Predicate;
+import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -83,5 +88,21 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             predicates.add(QueryByExamplePredicateBuilder.getPredicate(root, builder, example));
             return builder.and(predicates.toArray(new Predicate[predicates.size()]));
         };
+    }
+
+    @Override
+    public void exportar(Exportar exportar, Pageable pageable) throws FileNotFoundException, JRException {
+        Optional<Departamento> optional = Optional.ofNullable(exportar.getDepartamento());
+        Departamento departamento = optional.orElse(new Departamento());
+        Page<Departamento> departamentos = findFilter(departamento, pageable);
+
+        String path = exportar.getCaminho() + exportar.getNomeArquivo() + "." + exportar.getFormato();
+        String classPath = "classpath:templates-xml/departamentos.jrxml";
+        String header = "Departamentos";
+
+        if (exportar.getFormato().equalsIgnoreCase("pdf"))
+            ExportUtils.exportReportPDF(path, classPath, header, departamentos.getContent());
+        if (exportar.getFormato().equalsIgnoreCase("xls"))
+            ExportUtils.exportReportXLS(path, classPath, header, departamentos.getContent());
     }
 }
