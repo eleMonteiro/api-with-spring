@@ -30,6 +30,13 @@ public class DepartamentoController extends ExceptionAdvice {
         this.service = service;
     }
 
+    @GetMapping("/search")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Page<Departamento> search(@RequestParam(value = "search") String search, Pageable pageable) {
+        return service.search(search, pageable);
+    }
+
+
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public Page<Departamento> findFilter(@RequestBody(required = false) Departamento filtro, Pageable pageable) {
@@ -53,7 +60,7 @@ public class DepartamentoController extends ExceptionAdvice {
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public Departamento update(@PathVariable(name = "id") Long numero, @RequestBody Departamento departamento) {
-       return service.update(numero, departamento);
+        return service.update(numero, departamento);
     }
 
     @DeleteMapping("/{id}")

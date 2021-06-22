@@ -4,11 +4,15 @@ import com.example.api.models.Departamento;
 import com.example.api.models.Exportar;
 import com.example.api.repositorys.DepartamentoRepository;
 import com.example.api.services.DepartamentoService;
+import com.example.api.rsql.CustomRsqlVisitor;
 import com.example.api.utils.ExportUtils;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.convert.QueryByExamplePredicateBuilder;
 import org.springframework.data.jpa.domain.Specification;
@@ -108,5 +112,14 @@ public class DepartamentoServiceImpl implements DepartamentoService {
             ExportUtils.exportReportPDF(path, classPath, header, departamentos.getContent());
         if (exportar.getFormato().equalsIgnoreCase("xls"))
             ExportUtils.exportReportXLS(path, classPath, header, departamentos.getContent());
+    }
+
+    @Override
+    public Page<Departamento> search(String search, Pageable pageable) {
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<Departamento> spec = rootNode.accept(new CustomRsqlVisitor<>());
+        List<Departamento> departamentos = repository.findAll(spec);
+
+        return new PageImpl<>(departamentos, pageable, departamentos.size());
     }
 }
